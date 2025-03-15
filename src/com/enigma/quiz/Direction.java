@@ -1,3 +1,5 @@
+package com.enigma.quiz;
+
 public enum Direction {
     NORTH, EAST, SOUTH, WEST;
 
