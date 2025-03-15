@@ -2,49 +2,48 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+
         int x = 2;
         int y = 3;
 
+        Direction currentDirection = Direction.NORTH;
+
+        System.out.println("Arah awal: " + currentDirection);
+        System.out.printf("Koordinat awal anda {%d, %d}\n", x, y);
         printCoordinatePlane(x, y);
-        System.out.printf("Posisi awal anda {%d, %d}\n", x, y);
+        System.out.println("Masukkan perintah (l untuk gsnti arah ke kanan, r untuk ganti arah ke kiri, a untuk bergerak maju, q untuk keluar):");
 
+        while (true) {
+            String commands = scanner.nextLine();
+            commands.toLowerCase();
 
-
-        while (true){
-            System.out.print("Masukkan arah (W/A/S/D) tekan 'Q' untuk keluar: ");
-            String a = sc.nextLine();
-
-            switch (a.toLowerCase()){
-                case "w":
-                    y += Robot.UP.getDirection();
-                    System.out.printf("Posisi anda {%d, %d}\n", x, y);
-                    printCoordinatePlane(x, y);
-                    break;
-                case "a":
-                    x += Robot.LEFT.getDirection();
-                    System.out.printf("Posisi anda {%d, %d}\n", x, y);
-                    printCoordinatePlane(x, y);
-                    break;
-                case "s":
-                    y += Robot.DOWN.getDirection();
-                    System.out.printf("Posisi anda {%d, %d}\n", x, y);
-                    printCoordinatePlane(x, y);
-                    break;
-                case "d":
-                    x += Robot.RIGHT.getDirection();
-                    System.out.printf("Posisi anda {%d, %d}\n", x, y);
-                    printCoordinatePlane(x, y);
-                    break;
-                case "q":
-                    System.out.printf("Posisi akhir anda {%d, %d}\n", x, y);
-                    printCoordinatePlane(x, y);
-                    return;
-                default:
-                    System.out.println("Intput tidak valid");
-                    break;
+            if (commands.equals("q")) {
+                break;
             }
+
+            for (char command : commands.toCharArray()) {
+                if (command == 'l') {
+                    currentDirection = currentDirection.turnLeft();
+                } else if (command == 'r') {
+                    currentDirection = currentDirection.turnRight();
+                } else if (command == 'a') {
+                    int[] newPosition = move(x, y, currentDirection);
+                    x = newPosition[0];
+                    y = newPosition[1];
+                } else {
+                    System.out.println("Perintah tidak dikenali: " + command);
+                }
+            }
+
+            System.out.println("Arah saat ini: " + currentDirection);
+            System.out.printf("Koordinat awal anda {%d, %d}\n", x, y);
+
+            printCoordinatePlane(x,y);
         }
+
+        System.out.println("Program selesai.");
+        scanner.close();
     }
 
     public static void printCoordinatePlane(int x, int y) {
@@ -65,5 +64,23 @@ public class Main {
             }
             System.out.println();
         }
+    }
+
+    public static int[] move(int x, int y, Direction direction) {
+        switch (direction) {
+            case NORTH:
+                y += 1;
+                break;
+            case SOUTH:
+                y -= 1;
+                break;
+            case EAST:
+                x += 1;
+                break;
+            case WEST:
+                x -= 1;
+                break;
+        }
+        return new int[]{x, y};
     }
 }
