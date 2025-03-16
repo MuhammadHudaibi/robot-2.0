@@ -1,5 +1,7 @@
 package com.enigma.quiz;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -17,4 +19,32 @@ public class History {
             e.printStackTrace();
         }
     }
+
+    public String readLastPosition() {
+        String lastLine = null;
+        try (BufferedReader reader = new BufferedReader(new FileReader("History.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("posisi akhir:")) {
+                    lastLine = line;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lastLine;
+    }
+
+    public Coordinate getLastPosition() {
+        String lastLine = readLastPosition();
+        if (lastLine != null) {
+            String[] parts = lastLine.split(": ")[1].split(", ");
+            char direction = parts[0].charAt(0);
+            int x = Integer.parseInt(parts[1]);
+            int y = Integer.parseInt(parts[2]);
+            return new Coordinate(x, y, direction);
+        }
+        return new Coordinate(2, 3, 'N');
+    }
+
 }

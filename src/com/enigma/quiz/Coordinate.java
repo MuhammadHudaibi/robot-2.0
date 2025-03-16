@@ -3,10 +3,20 @@ package com.enigma.quiz;
 public class Coordinate {
     int x;
     int y;
+    char direction;
 
-    public Coordinate(int x, int y) {
+    public Coordinate(int x, int y, char direction) {
         this.x = x;
         this.y = y;
+        this.direction = direction;
+    }
+
+    public char getDirection() {
+        return direction;
+    }
+
+    public void setDirection(char direction) {
+        this.direction = direction;
     }
 
     public int getX() {
@@ -27,16 +37,16 @@ public class Coordinate {
 
     public static int[] move(int x, int y, Direction direction) {
         switch (direction) {
-            case NORTH:
+            case N:
                 y += 1;
                 break;
-            case SOUTH:
+            case S:
                 y -= 1;
                 break;
-            case EAST:
+            case E:
                 x += 1;
                 break;
-            case WEST:
+            case W:
                 x -= 1;
                 break;
         }

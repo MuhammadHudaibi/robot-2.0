@@ -8,15 +8,15 @@ import com.enigma.quiz.Static.Scanners;
 public class View {
     public void view() {
         History history = new History();
-        Coordinate coordinate = new Coordinate(2, 3);
+        Coordinate coordinate = history.getLastPosition();
 
         int x = coordinate.getX();
         int y = coordinate.getY();
+        Direction currentDirection = Direction.valueOf(String.valueOf(coordinate.getDirection()));
 
-        Direction currentDirection = Direction.NORTH;
-
-        System.out.println("Arah awal: " + currentDirection);
+        System.out.println("Arah awal: " + currentDirection.getDirection());
         System.out.printf("Koordinat awal anda {%d, %d}\n", x, y);
+
         Graph.printCoordinatePlane(x, y);
         System.out.println("Masukkan perintah (l untuk gsnti arah ke kanan, " +
                 "r untuk ganti arah ke kiri, " +
@@ -47,7 +47,7 @@ public class View {
                 }
             }
 
-            System.out.println("Arah saat ini: " + currentDirection);
+            System.out.println("Arah saat ini: " + currentDirection.getDirection());
             System.out.printf("Koordinat awal anda {%d, %d}\n", x, y);
 
             Graph.printCoordinatePlane(x,y);
