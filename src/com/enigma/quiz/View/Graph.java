@@ -1,4 +1,4 @@
-package com.enigma.quiz;
+package com.enigma.quiz.View;
 
 public class Graph {
     public static void printCoordinatePlane(int x, int y) {

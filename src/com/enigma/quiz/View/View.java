@@ -2,11 +2,12 @@ package com.enigma.quiz.View;
 
 import com.enigma.quiz.Coordinate;
 import com.enigma.quiz.Direction;
-import com.enigma.quiz.Graph;
+import com.enigma.quiz.History;
 import com.enigma.quiz.Static.Scanners;
 
 public class View {
     public void view() {
+        History history = new History();
         Coordinate coordinate = new Coordinate(2, 3);
 
         int x = coordinate.getX();
@@ -32,12 +33,15 @@ public class View {
             for (char command : commands.toCharArray()) {
                 if (command == 'l') {
                     currentDirection = currentDirection.turnLeft();
+                    history.write(commands.toUpperCase() ,x, y, currentDirection, false);
                 } else if (command == 'r') {
                     currentDirection = currentDirection.turnRight();
+                    history.write(commands.toUpperCase() ,x, y, currentDirection, false);
                 } else if (command == 'a') {
                     int[] newPosition = Coordinate.move(x, y, currentDirection);
                     x = newPosition[0];
                     y = newPosition[1];
+                    history.write(commands.toUpperCase(), x, y, currentDirection, false);
                 } else {
                     System.out.println("Perintah tidak dikenali: " + command);
                 }
@@ -50,5 +54,6 @@ public class View {
             coordinate.setX(x);
             coordinate.setY(y);
         }
+        history.write("", coordinate.getX(), coordinate.getY(), currentDirection, true);
     }
 }
