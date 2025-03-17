@@ -34,22 +34,4 @@ public class Coordinate {
     public void setY(int y) {
         this.y = y;
     }
-
-    public static int[] move(int x, int y, Direction direction) {
-        switch (direction) {
-            case N:
-                y += 1;
-                break;
-            case S:
-                y -= 1;
-                break;
-            case E:
-                x += 1;
-                break;
-            case W:
-                x -= 1;
-                break;
-        }
-        return new int[]{x, y};
-    }
 }
